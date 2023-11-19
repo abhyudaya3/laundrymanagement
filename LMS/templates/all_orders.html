@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Orders</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>All Orders</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Reference ID</th>
+                    <th>Name</th>
+                    <th>Roll No</th>
+                    <th>Mobile Number</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Orders</th>
+                    <th>Total Price (Rs)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order_data in orders_data %}
+                    <tr>
+                        <td>{{ order_data.reference_id }}</td>
+                        <td>{{ order_data.name }}</td>
+                        <td>{{ order_data.roll_no }}</td>
+                        <td>{{ order_data.mobile_number }}</td>
+                        <td>{{ order_data.email }}</td>
+                        <td>{{ order_data.status }}</td>
+                        <td>
+                            {% for item_name, quantity in order_data.items.items() %}
+                                {{ quantity }} {{ item_name }}
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ order_data.total_price }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

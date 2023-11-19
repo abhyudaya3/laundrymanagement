@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">LMS</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/log">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">Contact Us</a>
+              </li>
+              
+            </ul>
+        </div>
+    </div>
+  </nav>
+    <div class="container">
+        <h1>Admin Page</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Reference ID</th>
+                    <th>Name</th>
+                    <th>Roll No</th>
+                    <th>Mobile Number</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Orders</th>
+                    <th>Total Quantity</th>
+                    <th>Total Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request_data in requests_data %}
+                    <tr>
+                        <td>{{ request_data.reference_id }}</td>
+                        <td>{{ request_data.name }}</td>
+                        <td>{{ request_data.roll_no }}</td>
+                        <td>{{ request_data.mobile_number }}</td>
+                        <td>{{ request_data.email }}</td>
+                        <td>{{ request_data.status }}</td>
+                        <td>
+                            {% for item, quantity in request_data.items.items() %}
+                                {{ item }}: {{ quantity }}<br>
+                            {% endfor %}
+                        </td>
+                        <td>{{ request_data.items|sum }}</td>
+                        <td>{{ request_data.total_price }}</td>
+                        <td>
+                            <a href="{{ url_for('update_request', request_id=request_data._id) }}" class="btn btn-primary">Update</a>
+                            <a href="{{ url_for('delete_request', request_id=request_data._id) }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

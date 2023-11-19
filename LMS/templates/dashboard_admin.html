@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">LMS</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/log">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">Contact Us</a>
+              </li>
+              
+            </ul>
+        </div>
+    </div>
+  </nav>
+    <div class="container mt-5">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="list-unstyled">
+                    {% for message in messages %}
+                        <li class="alert alert-info">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <h1>Welcome, {{ username }}!</h1>
+        <p>User Type: {{ user_type }}</p>
+
+        {% if user_type == 'admin' %}
+            <h2>Order Requests</h2>
+            {% if orders|length > 0 %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Reference ID</th>
+                            <th>Name</th>
+                            <th>Roll No</th>
+                            <th>Mobile</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            {% if order.reference_id is defined %}
+                                <tr>
+                                    <td>{{ order.reference_id }}</td>
+                                    <td>{{ order.name }}</td>
+                                    <td>{{ order.roll_no }}</td>
+                                    <td>{{ order.mobile }}</td>
+                                    <td>{{ order.email }}</td>
+                                    <td>{{ order.status }}</td>
+                                    <td>
+                                        <a href="/update_order/{{ order.reference_id }}" class="btn btn-primary">Update</a>
+                                        <a href="/delete_order/{{ order.reference_id }}" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No orders available.</p>
+            {% endif %}
+        {% endif %}
+
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+</body>
+</html>
