@@ -68,3 +68,26 @@ Efficiency: Streamlines the laundry ordering process for both users and service 
 Transparency: Real-time order tracking enhances customer satisfaction.
 User-Friendly: Intuitive interfaces make it easy for users to navigate and interact with the system.
 Security: Password hashing ensures the security of user accounts and information.
+
+# List of frameworks, libraries, and dependencies along with their installation instructions:
+
+Backend (Flask - Python Framework):
+Flask:
+    Installation:
+        pip install Flask
+
+Flask-PyMongo (for MongoDB integration):
+    Installation:
+        pip install Flask-PyMongo
+
+Passlib (for password hashing):
+      Installation:
+          pip install passlib
+
+
+Database:
+  MongoDB:
+    Follow the official instructions for installing MongoDB.
+
+# Note:
+Make sure to replace placeholders like 'your_secret_key', 'your-mongodb-url', 'username', and 'password' with your actual values.
